@@ -26,20 +26,21 @@ form.addEventListener('submit', function(event) {
     } else {
         const listElement = createListElement(text, deadLine, false);
         list.appendChild(listElement);
-
         saveDataToLocalStorage();
     }
 });
 
-function createListElement(text, deadLine, isCompleted) {
+function createListElement(text, deadLine) {
     const listElement = document.createElement('li');
     listElement.classList.add('listElement');
+    listElement.appendChild(document.createElement('hr'));
 
     const forDeadLineSpot = document.createElement('h3');
     forDeadLineSpot.textContent = 'Дед лайн: ' + deadLine;
     listElement.appendChild(forDeadLineSpot);
 
     const forTextSpot = document.createElement('p');
+    forTextSpot.classList.add('textSpot');
     forTextSpot.textContent = text;
     listElement.appendChild(forTextSpot);
 
@@ -68,7 +69,39 @@ function createListElement(text, deadLine, isCompleted) {
     });
 
     editButton.addEventListener('click', function() {
-        // Ваш код для редактирования элемента списка
+        const spotForEditForm = document.createElement('div');
+        const editForm = document.createElement('form');
+        const editTextSpot = document.createElement('input');
+        const successButton = document.createElement('button');
+        successButton.type = 'button';
+        const cancelButton = document.createElement('button');
+        cancelButton.type = 'button';
+        editTextSpot.value = forTextSpot.textContent;
+        successButton.textContent = 'Применить';
+        successButton.classList.add('successPointButton')
+        cancelButton.textContent = 'Отменить';
+        cancelButton.classList.add('deleteButton');
+        editForm.appendChild(editTextSpot);
+        editForm.appendChild(successButton);
+        editForm.appendChild(cancelButton);
+
+        spotForEditForm.appendChild(editForm);
+        listElement.appendChild(spotForEditForm);
+
+        cancelButton.addEventListener('click', function() {
+            spotForEditForm.removeChild(editForm);
+        });
+        
+        successButton.addEventListener('click', function() {
+            if (editTextSpot.value !== '') {
+                forTextSpot.textContent = editTextSpot.value;
+                listElement.appendChild(forButtonsSpot.removeChild(editButton));
+                listElement.removeChild(spotForEditForm);
+                saveDataToLocalStorage();
+            } else {
+                alert('Вы оставили поле пустым!');
+            }
+        });
     });
 
     successPointButton.addEventListener('click', function() {

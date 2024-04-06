@@ -80,3 +80,12 @@ input {
     border-radius: 30px;
     margin: 10px;
 }
+
+#list li {
+    margin-top: 30px;
+}
+
+.textSpot {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
