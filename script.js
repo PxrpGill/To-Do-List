@@ -95,7 +95,7 @@ function createListElement(text, deadLine) {
         successButton.addEventListener('click', function() {
             if (editTextSpot.value !== '') {
                 forTextSpot.textContent = editTextSpot.value;
-                listElement.appendChild(forButtonsSpot.removeChild(editButton));
+                listElement.appendChild(forButtonsSpot);
                 listElement.removeChild(spotForEditForm);
                 saveDataToLocalStorage();
             } else {
